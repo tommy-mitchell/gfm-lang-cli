@@ -1,0 +1,79 @@
+{
+	"name": "gfm-lang-cli",
+	"version": "0.0.0",
+	"description": "Get the GFM-style aliases for a given language, or vice-versa.",
+	"keywords": [
+		"cli",
+		"cli-app",
+		"command-line",
+		"lang",
+		"language",
+		"extension",
+		"linguist",
+		"gfm",
+		"markdown",
+		"github",
+		"gh",
+		"github-flavored-markdown"
+	],
+	"license": "MIT",
+	"repository": "tommy-mitchell/gfm-lang-cli",
+	"author": {
+		"name": "Tommy Mitchell",
+		"url": "https://tommymitchell.io"
+	},
+	"type": "module",
+	"bin": {
+		"gfm-lang": "dist/cli.js"
+	},
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=16.9"
+	},
+	"scripts": {
+		"prepare": "npm run build",
+		"build": "tsc -p tsconfig.build.json && execify --all",
+		"lint": "xo",
+		"test": "tsc --noEmit && c8 npm run ava",
+		"ava": "cross-env NODE_OPTIONS='--loader=tsx --no-warnings=ExperimentalWarning' ava"
+	},
+	"ava": {
+		"files": [
+			"test/**/*.ts",
+			"!test/_*"
+		],
+		"extensions": {
+			"ts": "module"
+		},
+		"environmentVariables": {
+			"concurrency": "5"
+		},
+		"nodeArguments": [
+			"--loader=tsx",
+			"--no-warnings=ExperimentalWarning"
+		]
+	},
+	"dependencies": {
+		"linguist-languages": "latest",
+		"log-symbols": "^5.1.0",
+		"meow": "^12.1.1"
+	},
+	"devDependencies": {
+		"@shopify/semaphore": "^3.0.2",
+		"@tommy-mitchell/tsconfig": "^1.1.0",
+		"@types/node": "^16.9",
+		"ava": "^5.3.1",
+		"c8": "^8.0.1",
+		"cross-env": "^7.0.3",
+		"execa": "^7.1.1",
+		"execify-cli": "beta",
+		"get-bin-path": "^10.0.0",
+		"is-executable": "^2.0.1",
+		"tsx": "^3.12.7",
+		"type-fest": "^4.3.1",
+		"typescript": "~5.2.2",
+		"xo": "^0.56.0"
+	}
+}
