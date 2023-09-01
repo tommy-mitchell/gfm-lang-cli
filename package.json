@@ -48,7 +48,7 @@
 			"ts": "module"
 		},
 		"environmentVariables": {
-			"concurrency": "10"
+			"concurrency": "5"
 		},
 		"nodeArguments": [
 			"--loader=tsx",
