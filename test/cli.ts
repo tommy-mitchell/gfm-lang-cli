@@ -52,6 +52,7 @@ test("shows aliases for single language", verifyCli, ["markdown"]);
 test("only shows language name if no aliases", verifyCli, ["css"]);
 test("shows error for unknown language, does not throw", verifyCli, ["asdf"]);
 test("shows language and aliases for an alias", verifyCli, ["md"]);
+test("supports aliases with dashes", verifyCli, ["npm-config"]);
 test("is case-insensitive", verifyCli, ["MARKDOWN"]);
 test("converts spaces to dashes", verifyCli, ["NPM Config"]);
 test("supports multiple languages", verifyCli, ["markdown", "javascript"]);

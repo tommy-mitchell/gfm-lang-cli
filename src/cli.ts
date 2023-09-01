@@ -32,14 +32,19 @@ if (input.length === 0 || helpShortFlag) {
 	cli.showHelp(0);
 }
 
-const languages: Array<[string, Language]> = Object.entries(_languages).map(([name, language]) => [name.toLowerCase(), language]);
-const languageNames = new Map(languages);
-const languageAliases = new Map(languages.flatMap(([_, language]) => language.aliases?.map(alias => [alias, language]) ?? []));
-
 const formatName = (name: string) => name.toLowerCase().replaceAll(" ", "-");
 
+type Languages = Array<[string, Language]>;
+
+const languages: Languages = Object.entries(_languages).map(([name, language]) => [name.toLowerCase(), language]);
+const languageNames = new Map(languages);
+const languageAliases = new Map(languages.flatMap(([_, language]) => [
+	...(language.aliases?.map(alias => [alias, language]) ?? []),
+	[formatName(language.name), language],
+] as Languages));
+
 for (const name of input) {
-	const language = languageNames.get(name) ?? languageAliases.get(name);
+	const language = languageNames.get(name) ?? languageAliases.get(formatName(name));
 
 	if (language) {
 		const title = name === language.name.toLowerCase() ? language.name : `${name} (${language.name})`;
