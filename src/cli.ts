@@ -1,7 +1,7 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env tsimp
 import meow from "meow";
 import logSymbols from "log-symbols";
-import _languages, { type Language } from "linguist-languages";
+import { formatName, languageNames, languageAliases } from "./helpers.js";
 
 const cli = meow(`
 	Usage
@@ -10,10 +10,10 @@ const cli = meow(`
 	Examples
 	  $ gfm-lang markdown js 'NPM Config' asdf
 
-	  ${logSymbols.info} Markdown - markdown, md, pandoc
-	  ${logSymbols.info} js (JavaScript) - javascript, js, node
-	  ${logSymbols.info} NPM Config - npm-config, npmrc
-	  ${logSymbols.error} asdf
+	  ℹ Markdown - markdown, md, pandoc
+	  ℹ js (JavaScript) - javascript, js, node
+	  ℹ NPM Config - npm-config, npmrc
+	  ✖ asdf
 `, {
 	importMeta: import.meta,
 	description: false,
@@ -26,22 +26,10 @@ const cli = meow(`
 });
 
 const input = cli.input.map(input => input.toLowerCase());
-const { flags: { help: helpShortFlag } } = cli;
 
-if (input.length === 0 || helpShortFlag) {
+if (input.length === 0) {
 	cli.showHelp(0);
 }
-
-const formatName = (name: string) => name.toLowerCase().replaceAll(" ", "-");
-
-type Languages = Array<[string, Language]>;
-
-const languages: Languages = Object.entries(_languages).map(([name, language]) => [name.toLowerCase(), language]);
-const languageNames = new Map(languages);
-const languageAliases = new Map(languages.flatMap(([_, language]) => [
-	...(language.aliases?.map(alias => [alias, language]) ?? []),
-	[formatName(language.name), language],
-] as Languages));
 
 for (const name of input) {
 	const language = languageNames.get(name) ?? languageAliases.get(formatName(name));

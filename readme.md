@@ -11,14 +11,17 @@ npm install --global gfm-lang-cli
 <details>
 <summary>Other Package Managers</summary>
 
+<br />
+
 ```sh
 yarn global add gfm-lang-cli
 ```
+
 </details>
 
 ## Usage
 
-```sh
+```txt
 $ gfm-lang
 
   Usage

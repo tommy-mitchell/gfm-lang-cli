@@ -24,26 +24,21 @@
 	},
 	"type": "module",
 	"bin": {
-		"gfm-lang": "dist/cli.js"
+		"gfm-lang": "./dist/cli.js"
 	},
 	"files": [
 		"dist"
 	],
 	"engines": {
-		"node": ">=16.9"
+		"node": "^18.18 || ^20.8 || ^21"
 	},
 	"scripts": {
 		"prepare": "npm run build",
 		"build": "tsc -p tsconfig.build.json && execify --all",
 		"lint": "xo",
-		"test": "tsc --noEmit && c8 npm run ava",
-		"ava": "cross-env NODE_OPTIONS='--loader=tsx --no-warnings=ExperimentalWarning' ava"
+		"test": "tsc --noEmit && c8 ava"
 	},
 	"ava": {
-		"files": [
-			"test/**/*.ts",
-			"!test/_*"
-		],
 		"extensions": {
 			"ts": "module"
 		},
@@ -51,29 +46,28 @@
 			"concurrency": "5"
 		},
 		"nodeArguments": [
-			"--loader=tsx",
-			"--no-warnings=ExperimentalWarning"
+			"--import=tsimp"
 		]
 	},
 	"dependencies": {
 		"linguist-languages": "latest",
-		"log-symbols": "^5.1.0",
-		"meow": "^12.1.1"
+		"log-symbols": "^6.0.0",
+		"meow": "^13.2.0"
 	},
 	"devDependencies": {
 		"@shopify/semaphore": "^3.0.2",
-		"@tommy-mitchell/tsconfig": "^1.1.0",
-		"@types/node": "^16.9",
-		"ava": "^5.3.1",
-		"c8": "^8.0.1",
-		"cross-env": "^7.0.3",
-		"execa": "^7.1.1",
+		"@tommy-mitchell/eslint-config-xo": "^0.2.0",
+		"@tommy-mitchell/tsconfig": "^2.1.0",
+		"@types/node": "^18.18",
+		"ava": "^6.1.1",
+		"c8": "^9.1.0",
+		"execa": "^8.0.1",
 		"execify-cli": "beta",
-		"get-bin-path": "^10.0.0",
+		"get-bin-path": "^11.0.0",
 		"is-executable": "^2.0.1",
-		"tsx": "^3.12.7",
-		"type-fest": "^4.3.1",
-		"typescript": "~5.2.2",
-		"xo": "^0.56.0"
+		"tsimp": "^2.0.11",
+		"type-fest": "^4.10.3",
+		"typescript": "~5.3.3",
+		"xo": "^0.57.0"
 	}
 }
